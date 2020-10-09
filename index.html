@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ProjectManager</title>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <script src="dist/app.js" type="module"></script>
+  </head>
+  <body>
+      
+
+      <template id="release-item-input">
+        <form >
+          <div class="form-group">
+            <label for="jiraId">JIRA Id</label>
+            <input type="text" id="jiraId" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" rows="3" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" class="form-control">
+              <option value=0>Dev Pending</option>
+              <option value=1>Code Review Pending</option>
+              <option value=2>QA Pending</option>
+              <option value=3>Ready To Release</option>
+            </select>
+          </div>
+          <div class="form-group">
+              <label for="domain">Domain</label>
+              <select id="domain" class="form-control">
+                <option value=0>GSCS</option>
+                <option value=1>HR</option>
+                <option value=2>Usage</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="validator">Validator</label>
+              <input id="validator" class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label for="valStatus">Validation Status</label>
+              <select id="valStatus" class="form-control">
+                  <option value=0></option>
+                  <option value=1>Passed</option>
+                  <option value=2>Failed</option>
+                </select>
+            </div>
+          <button type="submit" data-toggle="modal" data-target="#myModal">Add Release Item</button>
+        </form>
+      </template>
+
+      <template id="release-item">
+      <li draggable="true">
+        <h3></h3>
+        <i class="fa fa-edit" data-toggle="modal" data-target="#myModal"></i>
+        <h4></h4>
+        <p></p>
+      </li>
+    </template>
+    <template id="release-list" >
+      <section class="projects col-md-3">
+        <header>
+          <h3></h3>
+          
+        </header>
+        <ul></ul>
+      </section>
+    </template>
+    
+    <div id="app" class="row" style="margin-top: 10px;"></div>
+    <br/>
+<button id="myBtn" data-toggle="modal" data-target="#myModal">Add Item</button>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Release Item</h5>
+        <button type="button" id="closeBtn" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+  
+      </div>
+    </div>
+  </div>
+  
+</div>
+    <script>
+     function test() {
+    alert('Thanks Harry!!');
+}
+
+    </script>
+  </body>
+</html>

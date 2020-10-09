@@ -1,0 +1,17 @@
+{
+  "name": "demo-app-ts",
+  "version": "1.0.0",
+  "description": "Demo app to handle CIA Release (Learning TS)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "jquery": "^3.5.1",
+    "lite-server": "^2.5.4"
+  }
+}
