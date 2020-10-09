@@ -13,8 +13,6 @@
     <script src="dist/app.js" type="module"></script>
   </head>
   <body>
-      
-
       <template id="release-item-input">
         <form >
           <div class="form-group">
@@ -46,7 +44,7 @@
               <label for="validator">Validator</label>
               <input id="validator" class="form-control"/>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="valStatusDiv" hidden>
               <label for="valStatus">Validation Status</label>
               <select id="valStatus" class="form-control">
                   <option value=0></option>
@@ -95,11 +93,11 @@
   </div>
   
 </div>
-    <script>
-     function test() {
-    alert('Thanks Harry!!');
-}
-
-    </script>
+    
+<script>
+  $('#myModal').on('hidden.bs.modal', () => {
+    document.getElementById('valStatusDiv').hidden = true;
+  });
+</script>
   </body>
 </html>

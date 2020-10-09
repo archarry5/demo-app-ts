@@ -1,8 +1,7 @@
 import { Component } from './base-component.js';
 import {Draggable} from '../models/drag-and-drop.js';
-import { Domain, ReleaseItemModel } from '../models/release-item-model.js';
+import { Domain, ItemStatus, ReleaseItemModel, ReleaseValidationStatus } from '../models/release-item-model.js';
 import { Autobind } from '../decorator/autobind.js';
-import {ReleaseItemInput} from './release-item-input.js';
 
 import {inputForm} from '../app.js';
 
@@ -23,6 +22,9 @@ export class ReleaseItem extends Component<HTMLUListElement, HTMLLIElement>
         super('release-item', hostElemId, false, releaseItem.jiraId);
         this.releaseItem = releaseItem;
 
+        // document.getElementById('valStatus')!.addEventListener('change', (event) => {
+        //     alert((event?.target as HTMLSelectElement).value);
+        // });
         this.configure();
         this.renderContent();
     }
@@ -42,15 +44,26 @@ export class ReleaseItem extends Component<HTMLUListElement, HTMLLIElement>
         this.element.addEventListener('dragend', this.dragEndHandler);
 
         this.element.querySelector('.fa-edit')!.addEventListener('click', () => {
-            //const inputForm = new ReleaseItemInput();
             inputForm.updateValuesInUI(this.releaseItem.jiraId, this.releaseItem.description, this.releaseItem.status, this.releaseItem.domain, this.releaseItem.validator, this.releaseItem.valStatus);
-
+            if (this.releaseItem.status === ItemStatus.ReadyToRelease) {
+                document.getElementById('valStatusDiv')!.hidden = false;
+            } else {
+                document.getElementById('valStatusDiv')!.hidden = true;
+            }
         })
     }
 
     renderContent() {
         this.element.querySelector('h3')!.textContent = this.releaseItem.jiraId;
         this.element.querySelector('h4')!.textContent = Domain[this.releaseItem.domain] + ' ' + this.releaseItem.validator;
-        this.element.querySelector('p')!.textContent =  this.releaseItem.description;;
+        this.element.querySelector('p')!.textContent =  this.releaseItem.description;
+        if (this.releaseItem.status === ItemStatus.ReadyToRelease) {
+            if (this.releaseItem.valStatus === ReleaseValidationStatus.Passed) {
+                this.element.style.backgroundColor = 'yellowgreen';
+            } else if (this.releaseItem.valStatus === ReleaseValidationStatus.Failed) {
+                this.element.style.backgroundColor = 'red';
+            } 
+        }
+        
     }
 }

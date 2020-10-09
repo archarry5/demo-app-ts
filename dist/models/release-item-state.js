@@ -25,8 +25,8 @@ export class ReleaseItemState extends State {
             listenerFn(this.items.slice());
         }
     }
-    addOrUpdateReleaseItem(jiraId, description, status, domain, validator) {
-        const newItem = new ReleaseItemModel(jiraId, description, status, domain, validator, ReleaseValidationStatus.None);
+    addOrUpdateReleaseItem(jiraId, description, status, domain, validator, valStatus) {
+        const newItem = new ReleaseItemModel(jiraId, description, status, domain, validator, valStatus || ReleaseValidationStatus.None);
         let existingProj = this.items.find(x => x.jiraId === jiraId && (this.updateReleaseItem(x, newItem), true));
         if (!existingProj) {
             this.items.push(newItem);

@@ -10,7 +10,7 @@ export class ReleaseItemInput extends Component<HTMLDivElement, HTMLFormElement>
     statusInEle: HTMLSelectElement;
     domainInEle: HTMLSelectElement;
     validatorInEle: HTMLInputElement;
-
+    valStatusInEle: HTMLSelectElement;
 
     constructor() {
         super('release-item-input', 'modalBody', true,'user-input');
@@ -20,6 +20,7 @@ export class ReleaseItemInput extends Component<HTMLDivElement, HTMLFormElement>
         this.statusInEle = this.element.querySelector('#status') as HTMLSelectElement;
         this.domainInEle = this.element.querySelector('#domain') as HTMLSelectElement;
         this.validatorInEle = this.element.querySelector('#validator') as HTMLInputElement;
+        this.valStatusInEle = this.element.querySelector('#valStatus') as HTMLSelectElement;
 
         this.configure();
     }
@@ -39,15 +40,17 @@ export class ReleaseItemInput extends Component<HTMLDivElement, HTMLFormElement>
         this.statusInEle.value = status.toString();
         this.domainInEle.value = domain.toString();
         this.validatorInEle.value = validator;
+        this.valStatusInEle.value = validationStatus.toString();
         this.element.querySelector('button')!.innerHTML = 'Update Release Item';
     }
 
-    private gatherUserInputs(): [string, string, ItemStatus, Domain, string] | void {
+    private gatherUserInputs(): [string, string, ItemStatus, Domain, string, ReleaseValidationStatus?] | void {
         const jiraId = this.jiraIdInEle.value;
         const desc = this.descInEle.value;
         const status = +this.statusInEle.value as ItemStatus;
         const domain = +this.domainInEle.value as Domain
         const validator = this.validatorInEle.value;
+        const releaseValStatus = +this.valStatusInEle.value as ReleaseValidationStatus;
 
         // const titleValidatable = {
         //     value: title,
@@ -76,7 +79,7 @@ export class ReleaseItemInput extends Component<HTMLDivElement, HTMLFormElement>
         //     } else {
         //         return [title, desc, +people];
         //     }
-        return [jiraId, desc, status, domain, validator];
+        return [jiraId, desc, status, domain, validator, releaseValStatus];
 
     }
 
@@ -86,6 +89,7 @@ export class ReleaseItemInput extends Component<HTMLDivElement, HTMLFormElement>
         this.statusInEle.value = '';
         this.domainInEle.value = '';
         this.validatorInEle.value = '';
+        this.valStatusInEle.value = '';
         this.element.querySelector('button')!.innerHTML = 'Add Release Item';
     }
 
@@ -94,8 +98,8 @@ export class ReleaseItemInput extends Component<HTMLDivElement, HTMLFormElement>
         event.preventDefault();
         const userInput = this.gatherUserInputs();
         if (Array.isArray(userInput)) {
-            const [jiraId, desc, status, domain, validator] = userInput;
-            releaseItemsState.addOrUpdateReleaseItem(jiraId, desc, status, domain, validator);
+            const [jiraId, desc, status, domain, validator, valStatus] = userInput;
+            releaseItemsState.addOrUpdateReleaseItem(jiraId, desc, status, domain, validator, valStatus);
             this.clearUserInputs();
         }
     }

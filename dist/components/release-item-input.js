@@ -16,6 +16,7 @@ export class ReleaseItemInput extends Component {
         this.statusInEle = this.element.querySelector('#status');
         this.domainInEle = this.element.querySelector('#domain');
         this.validatorInEle = this.element.querySelector('#validator');
+        this.valStatusInEle = this.element.querySelector('#valStatus');
         this.configure();
     }
     configure() {
@@ -31,6 +32,7 @@ export class ReleaseItemInput extends Component {
         this.statusInEle.value = status.toString();
         this.domainInEle.value = domain.toString();
         this.validatorInEle.value = validator;
+        this.valStatusInEle.value = validationStatus.toString();
         this.element.querySelector('button').innerHTML = 'Update Release Item';
     }
     gatherUserInputs() {
@@ -39,6 +41,7 @@ export class ReleaseItemInput extends Component {
         const status = +this.statusInEle.value;
         const domain = +this.domainInEle.value;
         const validator = this.validatorInEle.value;
+        const releaseValStatus = +this.valStatusInEle.value;
         // const titleValidatable = {
         //     value: title,
         //     required: true,
@@ -63,7 +66,7 @@ export class ReleaseItemInput extends Component {
         //     } else {
         //         return [title, desc, +people];
         //     }
-        return [jiraId, desc, status, domain, validator];
+        return [jiraId, desc, status, domain, validator, releaseValStatus];
     }
     clearUserInputs() {
         this.jiraIdInEle.value = '';
@@ -71,14 +74,15 @@ export class ReleaseItemInput extends Component {
         this.statusInEle.value = '';
         this.domainInEle.value = '';
         this.validatorInEle.value = '';
+        this.valStatusInEle.value = '';
         this.element.querySelector('button').innerHTML = 'Add Release Item';
     }
     submitHandler(event) {
         event.preventDefault();
         const userInput = this.gatherUserInputs();
         if (Array.isArray(userInput)) {
-            const [jiraId, desc, status, domain, validator] = userInput;
-            releaseItemsState.addOrUpdateReleaseItem(jiraId, desc, status, domain, validator);
+            const [jiraId, desc, status, domain, validator, valStatus] = userInput;
+            releaseItemsState.addOrUpdateReleaseItem(jiraId, desc, status, domain, validator, valStatus);
             this.clearUserInputs();
         }
     }

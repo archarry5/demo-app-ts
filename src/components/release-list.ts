@@ -1,6 +1,6 @@
 import {Component} from './base-component.js';
 import {DragTarget} from '../models/drag-and-drop.js';
-import {ReleaseItemModel, ItemStatus} from '../models/release-item-model.js';
+import {ReleaseItemModel, ItemStatus, ReleaseValidationStatus} from '../models/release-item-model.js';
 import {Autobind} from '../decorator/autobind.js';
 import {releaseItemsState} from '../models/release-item-state.js';
 import { ReleaseItem } from './single-release-item.js';
